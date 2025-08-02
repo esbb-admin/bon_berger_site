@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'insecure-key-for-dev')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['bon-berger.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['bon-berger-site.onrender.com', 'localhost', '127.0.0.1']
 
 
 
