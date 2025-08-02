@@ -1,0 +1,1 @@
+web: gunicorn bon_berger_site.wsgi

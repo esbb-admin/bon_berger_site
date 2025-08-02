@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Accueil – Le Bon Berger{% endblock %}
+
+{% block content %}
+<!-- Section d'en-tête -->
+<section class="text-center py-5 bg-light border-bottom">
+    {% if ecole.logo %}
+        <img src="{{ ecole.logo.url }}" alt="Logo de l'école" class="img-fluid mb-3" style="max-height: 120px;">
+    {% endif %}
+    <h1 class="display-4 text-dark">{{ ecole.nom }}</h1>
+    {% if ecole.slogan %}
+        <p class="lead text-success font-italic">{{ ecole.slogan }}</p>
+    {% endif %}
+    <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
+        <a href="/formations/" class="btn btn-outline-primary btn-lg">Voir les Formations</a>
+        <a href="/actualites/" class="btn btn-outline-success btn-lg">Actualités & Résultats</a>
+        <a href="/inscription/" class="btn btn-outline-warning btn-lg">Préinscription</a>
+    </div>
+</section>
+
+<!-- Présentation + Mot du Fondateur -->
+<div class="container my-5">
+    <div class="row g-5 align-items-start">
+        <!-- Présentation de l'école -->
+        <div class="col-lg-6 mb-4">
+            <h3 class="text-secondary border-bottom pb-2">Présentation de l'école</h3>
+            <p class="text-justify">{{ ecole.description }}</p>
+        </div>
+
+        <!-- Mot du Fondateur -->
+        <div class="col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Le mot du Fondateur</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center">
+                            <img src="{% static 'images/fondateur.jpg' %}" alt="Fondateur" class="img-fluid rounded-circle shadow-sm mb-2" style="max-width: 120px;">
+                            <h6 class="font-weight-bold mb-0">TITINGAR Jean Claude</h6>
+                            <small class="text-muted">Fondateur</small>
+                        </div>
+                        <div class="col-md-8">
+                            <blockquote class="blockquote">
+                                <p class="mb-0 text-dark font-italic">
+                                    "À l’école Le Bon Berger, nous croyons que chaque étudiant a un potentiel unique à révéler. 
+                                    Notre mission est de former des professionnels compétents, intègres et porteurs de lumière pour leur génération."
+                                </p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+<!-- Section Contact -->
+<hr>
+<div class="container mb-5">
+    <h4 class="text-secondary">Contact</h4>
+    <p><strong>Adresse :</strong> {{ ecole.adresse }}</p>
+    <p><strong>Téléphone :</strong> {{ ecole.telephone }}</p>
+    <p><strong>Email :</strong> {{ ecole.email }}</p>
+    {% if ecole.facebook %}
+        <p><a href="{{ ecole.facebook }}" target="_blank" class="btn btn-sm btn-primary">Nous suivre sur Facebook</a></p>
+    {% endif %}
+</div>
+{% endblock %}

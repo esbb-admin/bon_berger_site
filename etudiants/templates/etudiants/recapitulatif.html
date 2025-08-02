@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Récapitulatif de Préinscription{% endblock %}
+
+{% block content %}
+<div class="container my-5" style="max-width: 800px; border: 1px solid #ccc; padding: 40px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <h2 class="text-center mb-4">📄 Fiche de Préinscription</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-4 text-center">
+            {% if preinsc.photo %}
+                <img src="{{ preinsc.photo.url }}" alt="Photo de profil" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+            {% else %}
+                <img src="{% static 'images/default_user.png' %}" alt="Photo de profil" class="img-thumbnail" style="width: 150px; height: 150px; object-fit: cover;">
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <p><strong>Nom :</strong> {{ preinsc.etudiant.last_name }}</p>
+            <p><strong>Prénom :</strong> {{ preinsc.etudiant.first_name }}</p>
+            <p><strong>Email :</strong> {{ preinsc.etudiant.email }}</p>
+            <p><strong>Date de naissance :</strong> {{ preinsc.date_naissance }}</p>
+            <p><strong>Sexe :</strong> {{ preinsc.get_sexe_display }}</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <p><strong>Adresse :</strong> {{ preinsc.adresse }}</p>
+    <p><strong>Quartier :</strong> {{ preinsc.quartier }}</p>
+    <p><strong>Téléphone :</strong> {{ preinsc.telephone }}</p>
+
+    <p><strong>Nom du tuteur :</strong> {{ preinsc.nom_tuteur }}</p>
+    <p><strong>Contact du tuteur :</strong> {{ preinsc.contact_tuteur }}</p>
+
+    <hr>
+
+    <p><strong>Filière demandée :</strong> {{ preinsc.get_niveau_souhaite_display }}</p>
+    <p><strong>Niveau d'études :</strong> {{ preinsc.get_niveau_etude_display }}</p>
+    <p><strong>Mode de formation :</strong> {{ preinsc.mode_formation }}</p>
+    <p><strong>Année scolaire :</strong> {{ preinsc.annee_scolaire }}</p>
+
+    {% if preinsc.commentaire %}
+      <p><strong>Commentaire :</strong> {{ preinsc.commentaire }}</p>
+    {% endif %}
+
+    <hr>
+
+    <h5>📎 Pièces jointes</h5>
+    <ul>
+        <li><strong>Dossier principal :</strong>
+            {% if preinsc.document_pdf %}
+                <a href="{{ preinsc.document_pdf.url }}" target="_blank">Voir le PDF</a>
+            {% else %}
+                Non fourni
+            {% endif %}
+        </li>
+        <li><strong>Pièce d'identité :</strong>
+            {% if preinsc.piece_identite %}
+                <a href="{{ preinsc.piece_identite.url }}" target="_blank">Voir</a>
+            {% else %}
+                Non fournie
+            {% endif %}
+        </li>
+        <li><strong>Autre document :</strong>
+            {% if preinsc.autre_document %}
+                <a href="{{ preinsc.autre_document.url }}" target="_blank">Voir</a>
+            {% else %}
+                Non fourni
+            {% endif %}
+        </li>
+    </ul>
+
+    <hr>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'dashboard_etudiant' %}" class="btn btn-secondary">↩️ Retour au tableau de bord</a>
+        <!-- Tu peux ajouter ici un bouton de validation finale si tu veux -->
+        <!-- <a href="#" class="btn btn-success ms-2">✅ Valider définitivement</a> -->
+    </div>
+</div>
+{% endblock %}

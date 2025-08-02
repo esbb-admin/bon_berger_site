@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Accueil – Ecole de Santé Le Bon Berger{% endblock %}
+
+{% block content %}
+
+<!-- HERO CAROUSEL AVEC ACTUALITÉS -->
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+
+    {% for act in actualites %}
+    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+      <img src="{{ act.image.url }}" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="{{ act.titre }}">
+      
+      <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-4 rounded">
+        <h5 class="textE-uppercase">{{ act.titre }}</h5>
+        <p>{{ act.contenu|truncatewords:20 }}</p>
+        <a href="{% url 'detail_actualite' act.id %}" class="btn btn-warning fw-bold mt-2">Lire plus</a>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+
+  <!-- Flèches -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Précédent</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Suivant</span>
+  </button>
+</div>
+
+
+<!-- PRÉSENTATION & MOT DU FONDATEUR -->
+<div class="container my-5">
+  <div class="row g-5 align-items-start">
+    <!-- Présentation de l'école -->
+    <div class="col-lg-6 mb-4">
+      <h3 class="text-secondary border-bottom pb-2">Présentation de l'école</h3>
+      <p class="text-justify">{{ ecole.description }}</p>
+    </div>
+
+    <!-- Mot du Fondateur -->
+    <div class="col-lg-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">Le mot du Fondateur</h5>
+        </div>
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-4 text-center">
+              <img src="{% static 'images/fondateur.jpg' %}" alt="Fondateur" class="img-fluid rounded-circle shadow-sm mb-2" style="max-width: 120px;">
+              <h6 class="font-weight-bold mb-0">TITINGAR Jean Claude</h6>
+              <small class="text-muted">Fondateur</small>
+            </div>
+            <div class="col-md-8">
+              <blockquote class="blockquote">
+                <p class="mb-0 text-dark font-italic">
+                  « À l’école Le Bon Berger, nous croyons que chaque étudiant a un potentiel unique à révéler. 
+                  Notre mission est de former des professionnels compétents, intègres et porteurs de lumière pour leur génération. »
+                </p>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+</div>
+
+<!-- SECTION CONTACT -->
+<hr>
+<div class="container mb-5">
+  <h4 class="text-secondary">Contact</h4>
+  <p><strong>Adresse :</strong> {{ ecole.adresse }}</p>
+  <p><strong>Téléphone :</strong> {{ ecole.telephone }}</p>
+  <p><strong>Email :</strong> {{ ecole.email }}</p>
+  {% if ecole.facebook %}
+    <p><a href="{{ ecole.facebook }}" target="_blank" class="btn btn-sm btn-primary">Nous suivre sur Facebook</a></p>
+  {% endif %}
+</div>
+
+{% endblock %}

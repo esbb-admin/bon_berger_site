@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Connexion étudiant{% endblock %}
+{% block content %}
+<h2>Connexion</h2>
+{% if erreur %}<div class="alert alert-danger">{{ erreur }}</div>{% endif %}
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-success" type="submit">Se connecter</button>
+</form>
+{% endblock %}
+
+

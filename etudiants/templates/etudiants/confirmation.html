@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmation de votre compte{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center">
+  <div class="card shadow p-4 mt-5" style="max-width: 600px; width: 100%;">
+    <h3 class="mb-4 text-center">🔐 Confirmation du compte</h3>
+
+    <p>
+      Un code de confirmation a été envoyé à :
+      <strong>{{ email }}</strong>
+    </p>
+
+    <!-- Formulaire de code -->
+    <form method="post" class="mb-3">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="code" class="form-label">Entrez le code :</label>
+        <input type="text" name="code" id="code" class="form-control" placeholder="Ex: 123456" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">✅ Confirmer</button>
+    </form>
+
+    <!-- Renvoyer le code -->
+    {% if peut_renvoyer %}
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="resend" value="1">
+        <button type="submit" class="btn btn-outline-secondary w-100">📩 Renvoyer le code</button>
+      </form>
+    {% else %}
+      <button class="btn btn-outline-secondary w-100" disabled>
+        ⏳ Attendez <span id="timer">{{ secondes_restantes }}</span> sec pour renvoyer
+      </button>
+      <script>
+        let timer = {{ secondes_restantes }};
+        const el = document.getElementById("timer");
+        const interval = setInterval(() => {
+          timer--;
+          el.textContent = timer;
+          if (timer <= 0) {
+            clearInterval(interval);
+            location.reload();
+          }
+        }, 1000);
+      </script>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Toast Bootstrap -->
+{% if message or erreur %}
+  <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+    <div class="toast align-items-center text-bg-{{ message|yesno:'success,danger' }} border-0 show" role="alert" data-bs-delay="5000">
+      <div class="d-flex">
+        <div class="toast-body">
+          {{ message|default:erreur }}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fermer"></button>
+      </div>
+    </div>
+  </div>
+  <script>
+    const toastElList = document.querySelectorAll('.toast');
+    const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl));
+    toastList.forEach(toast => toast.show());
+  </script>
+{% endif %}
+{% endblock %}

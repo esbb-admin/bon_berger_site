@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Tableau de bord{% endblock %}
+{% block content %}
+<h2>Bienvenue {{ user.first_name }}</h2>
+
+{% if preinsc %}
+  <div class="card my-4">
+    <div class="card-body">
+      <h5 class="card-title">Préinscription</h5>
+      <p><strong>Niveau :</strong> {{ preinsc.niveau_souhaite }}</p>
+      <p><strong>Téléphone :</strong> {{ preinsc.telephone }}</p>
+      <p><strong>Date d'envoi :</strong> {{ preinsc.date_envoi|date:"d/m/Y à H:i" }}</p>
+      <p><strong>État :</strong> 
+        {% if preinsc.etat == 'validee' %}
+          <span class="text-success">✅ Validée</span>
+        {% elif preinsc.etat == 'rejete' %}
+          <span class="text-danger">❌ Rejetée</span>
+        {% else %}
+          <span class="text-warning">⏳ En attente</span>
+        {% endif %}
+      </p>
+      <a href="{{ preinsc.document_pdf.url }}" class="btn btn-sm btn-outline-primary" download>📥 Voir le document</a>
+    </div>
+  </div>
+{% else %}
+  <div class="alert alert-info">
+    Vous n'avez pas encore envoyé de préinscription.
+  </div>
+  <a href="{% url 'formulaire_preinscription' %}" class="btn btn-outline-success">Faire une préinscription</a>
+{% endif %}
+
+{% endblock %}

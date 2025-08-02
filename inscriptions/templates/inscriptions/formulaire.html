@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Préinscription – Le Bon Berger{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card mx-auto shadow p-4" style="max-width: 800px;">
+
+    <h2 class="mb-4 text-center">📝 Formulaire de Préinscription</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- Informations personnelles -->
+      <h5 class="mt-4">👤 Informations personnelles</h5>
+
+      <div class="mb-3">
+        <label class="form-label">Nom</label>
+        <input type="text" class="form-control" value="{{ request.user.last_name }}" readonly>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Prénom</label>
+        <input type="text" class="form-control" value="{{ request.user.first_name }}" readonly>
+      </div>
+
+      <div class="mb-3">
+        <label for="date_naissance" class="form-label">Date de naissance</label>
+        {{ form.date_naissance|add_class:"form-control" }}
+      </div>
+
+       <div class="mb-3">
+        <label for="lieu_naissance" class="form-label">Lieu de naissance</label>
+        {{ form.lieu_naissance |add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="sexe" class="form-label">Sexe</label>
+        {{ form.sexe|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="telephone" class="form-label">Téléphone</label>
+        {{ form.telephone|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="adresse" class="form-label">Adresse</label>
+        {{ form.adresse|add_class:"form-control"|attr:"rows:2" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="quartier" class="form-label">Quartier</label>
+        {{ form.quartier|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="photo" class="form-label">Photo (facultatif)</label>
+        {{ form.photo|add_class:"form-control" }}
+      </div>
+
+      <!-- Tuteur -->
+      <h5 class="mt-4">👨‍👩‍👧‍👦 Informations du tuteur</h5>
+
+      <div class="mb-3">
+        <label for="nom_tuteur" class="form-label">Nom du tuteur</label>
+        {{ form.nom_tuteur|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="contact_tuteur" class="form-label">Contact du tuteur</label>
+        {{ form.contact_tuteur|add_class:"form-control" }}
+      </div>
+
+      <!-- Formation -->
+      <h5 class="mt-4">🎓 Formation souhaitée</h5>
+
+      <div class="mb-3">
+        <label for="niveau_souhaite" class="form-label">Filière souhaitée</label>
+        {{ form.niveau_souhaite|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="niveau_etude" class="form-label">Niveau d’étude actuel</label>
+        {{ form.niveau_etude|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="mode_formation" class="form-label">Mode de formation</label>
+        {{ form.mode_formation|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="annee_scolaire" class="form-label">Année scolaire</label>
+        {{ form.annee_scolaire|add_class:"form-control" }}
+      </div>
+
+      <!-- Pièces à joindre -->
+      <h5 class="mt-4">📎 Pièces à fournir</h5>
+
+      <div class="mb-3">
+        <label for="document_pdf" class="form-label">Dossier de préinscription (PDF)</label>
+        {{ form.document_pdf|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="piece_identite" class="form-label">Pièce d'identité (facultatif)</label>
+        {{ form.piece_identite|add_class:"form-control" }}
+      </div>
+
+      <div class="mb-3">
+        <label for="autre_document" class="form-label">Autre document (facultatif)</label>
+        {{ form.autre_document|add_class:"form-control" }}
+      </div>
+
+      <!-- Commentaire -->
+      <div class="mb-3">
+        <label for="commentaire" class="form-label">Commentaire (facultatif)</label>
+        {{ form.commentaire|add_class:"form-control"|attr:"rows:2" }}
+      </div>
+
+      <!-- Boutons -->
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary">📩 Envoyer la demande</button>
+        <a href="{% url 'dashboard_etudiant' %}" class="btn btn-secondary ms-2">↩️ Retour</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
