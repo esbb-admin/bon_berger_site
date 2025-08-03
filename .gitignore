@@ -12,7 +12,14 @@ ENV/
 # Django
 *.log
 staticfiles/
-media/
+
+# Media - ignorer tout sauf media/images/
+media/*
+!media/actualites/
+!media/actualites/**
+!media/photos/
+!media/photos/**
+# Base de données
 db.sqlite3
 
 # IDE
