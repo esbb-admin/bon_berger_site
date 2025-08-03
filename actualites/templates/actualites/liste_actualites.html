@@ -39,13 +39,12 @@
     <!-- Partie principale avec actualités -->
     <div class="col-md-8">
       <div class="actualite-scroll">
-        <h2 class="mb-4">📰 Actualités & Résultats</h2>
+        <h2 class="mb-4">📰 Actualités</h2>
 
         {% for act in actualites %}
         <div class="card mb-4 shadow">
           
           {% if act.image %}
-            <!-- Image format Facebook style -->
             <img src="{{ act.image.url }}" class="image-facebook-style" alt="Illustration {{ act.titre }}"
                  data-bs-toggle="modal" data-bs-target="#modal-image-{{ act.id }}">
           {% endif %}
@@ -74,7 +73,6 @@
             </div>
           </div>
 
-          <!-- Modal image -->
           {% if act.image %}
           <div class="modal fade" id="modal-image-{{ act.id }}" tabindex="-1" aria-labelledby="imageModalLabel{{ act.id }}" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -95,7 +93,6 @@
             </div>
           </div>
           {% endif %}
-
         </div>
         {% empty %}
         <p class="text-muted">Aucune actualité pour le moment.</p>
@@ -108,24 +105,26 @@
       <div class="card mb-3">
         <div class="card-header bg-success text-white">🔔 Info importante</div>
         <div class="card-body">
-          <p>Les inscriptions sont ouvertes jusqu’au <strong>30 août</strong>.</p>
+          <p>Les inscriptions et réinscriptions sont ouvertes jusqu’au <strong>12 Octobre 2025 à 17h</strong>.</p>
         </div>
       </div>
 
       <div class="card mb-3">
         <div class="card-header bg-warning text-dark">📅 Événement à venir</div>
         <div class="card-body">
-          <p><strong>Journée Portes Ouvertes</strong><br>15 juillet 2025 – N'Djamena</p>
+          <p><strong>Présentation des Protocoles de Recherche</strong><br>du 01 au 07 août 2025 – N'Djamena, au sein de l'école.</p>
         </div>
       </div>
 
       <div class="card mb-3">
-        <div class="card-header bg-primary text-white">📎 Liens utiles</div>
+        <div class="card-header bg-primary text-white">📘 Documents utiles</div>
         <div class="card-body">
           <ul class="list-unstyled">
-            <li><a href="/formations/">📘 Formations</a></li>
-            <li><a href="/inscription/">📝 Préinscription</a></li>
-            <li><a href="/#contact">📞 Contact</a></li>
+            <li>
+              <a href="{% static 'pdf/dépliant 2024-2025.pdf' %}" class="btn btn-outline-primary btn-lg" download>
+                <i class="bi bi-file-earmark-arrow-down-fill"></i> Autorisation définitive PDF
+              </a>
+            </li>
           </ul>
         </div>
       </div>

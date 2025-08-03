@@ -8,7 +8,7 @@ class Ecole(models.Model):
     description = models.TextField()
     mot_du_fondateur = models.TextField(blank=True)
     adresse = models.CharField(max_length=255)
-    telephone = models.CharField(max_length=20)
+    telephone = models.CharField(max_length=50)
     email = models.EmailField()
     logo = models.ImageField(upload_to='logos/', blank=True, null=True)
     facebook = models.URLField(blank=True)

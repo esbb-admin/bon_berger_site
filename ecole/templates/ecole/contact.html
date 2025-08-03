@@ -1,5 +1,6 @@
 
 {% extends 'base.html' %}
+{% load static %}
 {% load widget_tweaks %}
 {% block content %}
 <!-- Section Informations -->
@@ -15,7 +16,7 @@
       <div class="bg-dark text-white p-4 rounded">
         <i class="bi bi-geo-alt-fill text-warning fs-1 mb-2"></i>
         <h5>BATIMENT DE L'ÉCOLE</h5>
-        <p>Campus Universitaire, 100m après le bâtiment administratif</p>
+        <p>Axe la Leprosérie , non loin du Lycée petit génie</p>
       </div>
     </div>
 
@@ -43,11 +44,8 @@
 <!-- Section Carte -->
 <div class="container mb-5">
   <div class="ratio ratio-16x9">
-    <iframe
-      src="https://www.google.com/maps/embed/v1/place?key=VOTRE_CLE_API&q=Le+Bon+Berger,Tchad"
-      allowfullscreen>
-    </iframe>
-  </div>
+  <img src="{% static 'images/localisation.png' %}" alt="localisation" class="img-fluid rounded rounded shadow-sm" style="width: 100%; height: auto;">
+</div>
 </div>
 
 <div class="row">
